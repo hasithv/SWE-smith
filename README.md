@@ -31,17 +31,25 @@ SWE-smith is a toolkit for training [SWE-agents](https://github.com/SWE-agent/SW
 * Train an LM to become a better SWE ([SWE-agent-LM-32B](https://huggingface.co/SWE-bench/SWE-agent-LM-32B)).
 
 ## Using The Extended SWE-Smith
+In my implementation, I created a way to identify functions with AST, roll them back commit by commit until meaningful (more than just docstrings or whitespace changes) edits to the body of the function arise, and then swap out the current function body with the old function body.
+
+The idea is that rolling back to previous versions of the function may induce version-drft-like bugs where the function hasn't caught up the current spec yet.
+
+Here is how you can use it
+
 Install a repo and its image (we will be using `Conan-io/Conan for testing`)
 ```bash
 python -m swesmith.build_repo.try_install_py conan-io/conan configs/install_repo.sh --commit 86f29e13 --force
 ```
 
 Generate history instances
-```
-python -m swesmith.bug_gen.history.generate ocnan-io__conan.86f29e13 \
+```bash
+python -m swesmith.bug_gen.history.generate conan-io__conan.86f29e13 \
 --max_bugs 20
 --dirs_exclude tests build
 ```
+
+You can also specify `--dirs_include` to only parse through those directories.
 
 ## ⚒️ Build Environments
 If you're interested in turning a GitHub repository into a SWE-gym, install the package from [source](https://swesmith.com/getting_started/installation/).
