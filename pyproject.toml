@@ -30,6 +30,7 @@ dependencies = [
     "matplotlib",
     "modal",
     "openai",
+    "packaging",
     "pre-commit",
     "python-dotenv",
     "rich",
@@ -50,6 +51,7 @@ dependencies = [
     "unidiff",
     "textual",
     "tree-sitter-php>=0.23.11",
+    "tomli; python_version < \"3.11\"",
 ]
 
 [project.optional-dependencies]
