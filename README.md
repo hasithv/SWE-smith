@@ -30,6 +30,19 @@ SWE-smith is a toolkit for training [SWE-agents](https://github.com/SWE-agent/SW
 * Create *unlimited* tasks (e.g., file localization, program repair, [SWE-bench](https://github.com/SWE-bench/SWE-bench)) for that repo.
 * Train an LM to become a better SWE ([SWE-agent-LM-32B](https://huggingface.co/SWE-bench/SWE-agent-LM-32B)).
 
+## Using The Extended SWE-Smith
+Install a repo and its image (we will be using `Conan-io/Conan for testing`)
+```bash
+python -m swesmith.build_repo.try_install_py conan-io/conan configs/install_repo.sh --commit 86f29e13 --force
+```
+
+Generate history instances
+```
+python -m swesmith.bug_gen.history.generate ocnan-io__conan.86f29e13 \
+--max_bugs 20
+--dirs_exclude tests build
+```
+
 ## ⚒️ Build Environments
 If you're interested in turning a GitHub repository into a SWE-gym, install the package from [source](https://swesmith.com/getting_started/installation/).
 
